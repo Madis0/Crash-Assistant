@@ -1,17 +1,11 @@
 # VulkanGPUDetectionAddon
 
-This mod contains just Vulkan lib in a jar-in-jar format, required for cross-platform detection that shows a warning if Minecraft is
-running on an integrated GPU while a dedicated GPU is available.
+This addon provides Vulkan libraries in a jar-in-jar format for cross-platform GPU detection with their types. It enables warnings when playing on an integrated GPU while a dedicated GPU is available.
 
-Currently, the core mod only has Windows-only DirectX GPU detection.
+The main Crash Assistant mod includes light weight DirectX-based detection for modern Windows, but this addon adds support for:
+- Very old Windows versions
+- Linux/MacOS platforms
 
-Vulkan-based GPU detection was split into a separate mod because the original implementation increased the mod size by ~5 MB, and some modpack creators were not happy
-about this.
+This library was separated from the main mod to reduce its size (~5 MB), addressing concerns from some modpack creators.
 
-So we split the Vulkan lib into a separate mod and left the lightweight DirectX solution in the core mod.
-
-The DirectX solution built into Crash Assistant 1.8.0+ will work perfectly on modern versions of Windows.
-
-This addon is needed for the GPU detection feature to work on very old versions of Windows or Linux/MacOS platforms.
-
-The mod does nothing on its own; it just provides the Vulkan lib for the Crash Assistant mod.
+This addon has no standalone functionality - it simply provides Vulkan libraries for the Crash Assistant mod.

@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.crashassistant'
+version = '1.0.0'
+
+def lwjglVersion = '3.3.1'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    vulkanLib
+}
+
+dependencies {
+    vulkanLib "org.lwjgl:lwjgl-vulkan:$lwjglVersion"
+}
+
+// Set the JAR name to match the required format
+jar {
+    archiveBaseName = 'CrashAssistant-VulkanGPUDetectionAddon'
+    archiveVersion = lwjglVersion
+
+    doLast {
+        // Get the vulkan JAR file
+        def vulkanJar = configurations.vulkanLib.files.find { it.name.contains('lwjgl-vulkan') }
+
+        if (vulkanJar) {
+            // Create a temporary directory to store the vulkan JAR
+            def tempDir = new File(temporaryDir, 'jarjar')
+            tempDir.mkdirs()
+
+            // Copy the vulkan JAR to the temporary directory
+            def targetFile = new File(tempDir, vulkanJar.name)
+            targetFile.bytes = vulkanJar.bytes
+
+            // Create the META-INF/jarjar directory in the JAR
+            ant.jar(destfile: archiveFile.get().asFile, update: true) {
+                zipfileset(file: targetFile, prefix: "META-INF/jarjar")
+            }
+        } else {
+            throw new GradleException("Could not find lwjgl-vulkan JAR in dependencies")
+        }
+    }
+}
