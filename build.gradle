@@ -21,7 +21,7 @@ dependencies {
 
 // Set the JAR name to match the required format
 jar {
-    archiveBaseName = 'CrashAssistant-VulkanGPUDetectionAddon'
+    archiveBaseName = 'CrashAssistantVulkanGPUDetectionAddon'
     archiveVersion = lwjglVersion
 
     doLast {
