@@ -13,10 +13,12 @@ repositories {
 
 configurations {
     vulkanLib
+    lwjglLib
 }
 
 dependencies {
     vulkanLib "org.lwjgl:lwjgl-vulkan:$lwjglVersion"
+    lwjglLib "org.lwjgl:lwjgl:$lwjglVersion"
 }
 
 // Set the JAR name to match the required format
@@ -27,22 +29,37 @@ jar {
     doLast {
         // Get the vulkan JAR file
         def vulkanJar = configurations.vulkanLib.files.find { it.name.contains('lwjgl-vulkan') }
+        // Get the core lwjgl JAR file
+        def lwjglJar = configurations.lwjglLib.files.find { it.name.contains('lwjgl-') && !it.name.contains('lwjgl-vulkan') }
+
+        // Create a temporary directory to store the JAR files
+        def tempDir = new File(temporaryDir, 'jarjar')
+        tempDir.mkdirs()
 
         if (vulkanJar) {
-            // Create a temporary directory to store the vulkan JAR
-            def tempDir = new File(temporaryDir, 'jarjar')
-            tempDir.mkdirs()
-
             // Copy the vulkan JAR to the temporary directory
-            def targetFile = new File(tempDir, vulkanJar.name)
-            targetFile.bytes = vulkanJar.bytes
+            def vulkanTargetFile = new File(tempDir, vulkanJar.name)
+            vulkanTargetFile.bytes = vulkanJar.bytes
 
-            // Create the META-INF/jarjar directory in the JAR
+            // Add the vulkan JAR to META-INF/jarjar
             ant.jar(destfile: archiveFile.get().asFile, update: true) {
-                zipfileset(file: targetFile, prefix: "META-INF/jarjar")
+                zipfileset(file: vulkanTargetFile, prefix: "META-INF/jarjar")
             }
         } else {
             throw new GradleException("Could not find lwjgl-vulkan JAR in dependencies")
+        }
+
+        if (lwjglJar) {
+            // Copy the core lwjgl JAR to the temporary directory
+            def lwjglTargetFile = new File(tempDir, lwjglJar.name)
+            lwjglTargetFile.bytes = lwjglJar.bytes
+
+            // Add the core lwjgl JAR to META-INF/jarjar
+            ant.jar(destfile: archiveFile.get().asFile, update: true) {
+                zipfileset(file: lwjglTargetFile, prefix: "META-INF/jarjar")
+            }
+        } else {
+            throw new GradleException("Could not find core lwjgl JAR in dependencies")
         }
     }
 }
