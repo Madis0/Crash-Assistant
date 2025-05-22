@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "crash_assistant_vulkan_gpu_detection_addon",
-    "version": "3.3.1",
+    "version": "3.3.3",
     "name": "Crash Assistant Vulkan GPU Detection Addon",
     "description": "Provides Vulkan libraries in a jar-in-jar format for cross-platform GPU detection with their types. Enables warnings when playing on an integrated GPU while a dedicated GPU is available. While the main Crash Assistant mod includes lightweight DirectX-based detection for modern Windows only, this addon adds support for very old Windows versions and Linux/MacOS platforms. This addon has no standalone functionality - it simply provides Vulkan libraries for the Crash Assistant mod.",
     "authors": [
