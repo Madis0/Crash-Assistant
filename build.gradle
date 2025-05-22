@@ -30,6 +30,10 @@ dependencies {
     nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows-arm64"
     nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows-x86"
     nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
+
+    // MoltenVK for macOS
+    nativesLib "org.lwjgl:lwjgl-vulkan:$lwjglVersion:natives-macos"
+    nativesLib "org.lwjgl:lwjgl-vulkan:$lwjglVersion:natives-macos-arm64"
 }
 
 // Set the JAR name to match the required format
