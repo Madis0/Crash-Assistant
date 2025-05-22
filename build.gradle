@@ -5,7 +5,7 @@ plugins {
 group = 'com.crashassistant'
 version = '1.0.0'
 
-def lwjglVersion = '3.3.1'
+def lwjglVersion = '3.3.3'
 
 repositories {
     mavenCentral()
@@ -14,11 +14,22 @@ repositories {
 configurations {
     vulkanLib
     lwjglLib
+    nativesLib
 }
 
 dependencies {
     vulkanLib "org.lwjgl:lwjgl-vulkan:$lwjglVersion"
     lwjglLib "org.lwjgl:lwjgl:$lwjglVersion"
+
+    // Native libraries
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-linux-arm32"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-linux-arm64"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-linux"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-macos-arm64"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-macos"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows-arm64"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows-x86"
+    nativesLib "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
 }
 
 // Set the JAR name to match the required format
@@ -31,6 +42,8 @@ jar {
         def vulkanJar = configurations.vulkanLib.files.find { it.name.contains('lwjgl-vulkan') }
         // Get the core lwjgl JAR file
         def lwjglJar = configurations.lwjglLib.files.find { it.name.contains('lwjgl-') && !it.name.contains('lwjgl-vulkan') }
+        // Get all native library JAR files
+        def nativeJars = configurations.nativesLib.files
 
         // Create a temporary directory to store the JAR files
         def tempDir = new File(temporaryDir, 'jarjar')
@@ -60,6 +73,22 @@ jar {
             }
         } else {
             throw new GradleException("Could not find core lwjgl JAR in dependencies")
+        }
+
+        // Process all native library JAR files
+        if (nativeJars) {
+            nativeJars.each { nativeJar ->
+                // Copy the native JAR to the temporary directory
+                def nativeTargetFile = new File(tempDir, nativeJar.name)
+                nativeTargetFile.bytes = nativeJar.bytes
+
+                // Add the native JAR to META-INF/jarjar
+                ant.jar(destfile: archiveFile.get().asFile, update: true) {
+                    zipfileset(file: nativeTargetFile, prefix: "META-INF/jarjar")
+                }
+            }
+        } else {
+            throw new GradleException("Could not find any native library JARs in dependencies")
         }
     }
 }
