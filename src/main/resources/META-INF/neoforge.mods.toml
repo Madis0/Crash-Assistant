@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "GNU LGPLv3"
+issueTrackerURL="https://github.com/KostromDan/Crash-Assistant/issues"
+[[mods]]
+modId = "crash_assistant_vulkan_gpu_detection_addon"
+version = "3.3.1"
+displayName = "Crash Assistant Vulkan GPU Detection Addon"
+logoFile="crash_assistant_vulkan_gpu_detection_addon.png"
+credits=""
+authors = "KostromDan"
+description = '''Provides Vulkan libraries in a jar-in-jar format for cross-platform GPU detection with their types. Enables warnings when playing on an integrated GPU while a dedicated GPU is available. While the main Crash Assistant mod includes lightweight DirectX-based detection for modern Windows only, this addon adds support for very old Windows versions and Linux/MacOS platforms. This addon has no standalone functionality - it simply provides Vulkan libraries for the Crash Assistant mod.''' #mandatory (Supports multiline text)
+[[dependencies.crash_assistant_vulkan_gpu_detection_addon]]
+modId = "neoforge"
+type="required"
+versionRange = "[20.0,)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.crash_assistant_vulkan_gpu_detection_addon]]
+modId = "minecraft"
+type="required"
+versionRange = "[1.20,)"
+ordering = "NONE"
+side = "BOTH"
