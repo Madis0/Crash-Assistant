@@ -12,10 +12,12 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 public class CrashAssistantEntrypoint implements IFMLLoadingPlugin {
+
     public CrashAssistantEntrypoint() {
         if (JarInJarHelper.isCleanroomRelauncher()) return;
 
-        String launchTarget = FMLLaunchHandler.side().isClient() ? "client" : "server";
+        String launchTarget = FMLLaunchHandler.side()
+            .isClient() ? "client" : "server";
         PlatformHelp.platform = PlatformHelp.FORGE;
         PlatformHelp.minecraftVersion = ForgeVersion.mcVersion;
 
@@ -26,9 +28,7 @@ public class CrashAssistantEntrypoint implements IFMLLoadingPlugin {
     }
 
     public String[] getASMTransformerClass() {
-        return new String[]{
-                "dev.kostromdan.mods.crash_assistant.forge_coremod.CrashAssistantTransformer"
-        };
+        return new String[] { "dev.kostromdan.mods.crash_assistant.forge_coremod.CrashAssistantTransformer" };
     }
 
     public String getModContainerClass() {
@@ -40,8 +40,7 @@ public class CrashAssistantEntrypoint implements IFMLLoadingPlugin {
         return null;
     }
 
-    public void injectData(Map<String, Object> data) {
-    }
+    public void injectData(Map<String, Object> data) {}
 
     public String getAccessTransformerClass() {
         return null;
