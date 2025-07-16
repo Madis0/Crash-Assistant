@@ -377,4 +377,14 @@ public class CrashAssistantCommands extends CommandBase implements IClientComman
     public boolean allowUsageWithoutPrefix(ICommandSender sender, String message) {
         return false;
     }
+    
+    @Override
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+        return true;
+    }
+    
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 0;
+    }
 }
