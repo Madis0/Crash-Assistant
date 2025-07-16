@@ -4,9 +4,7 @@ import dev.kostromdan.mods.crash_assistant.Tags;
 import dev.kostromdan.mods.crash_assistant.common.CrashAssistant;
 import dev.kostromdan.mods.crash_assistant.common.commands.CrashAssistantCommands;
 import dev.kostromdan.mods.crash_assistant.common.events.CrashAssistantEvents;
-
 import dev.kostromdan.mods.crash_assistant.forge_coremod.CrashAssistantHooks;
-import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -30,8 +28,10 @@ public final class CrashAssistantForge {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        CrashAssistant.init();
-        MinecraftForge.EVENT_BUS.register(this);
+        if (event.getSide() == Side.CLIENT) {
+            CrashAssistant.init();
+            MinecraftForge.EVENT_BUS.register(this);
+        }
     }
 
     @Mod.EventHandler
