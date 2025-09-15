@@ -66,7 +66,6 @@ public class JarInJarHelper {
                     tempModJarPath.toString(),
                     LibrariesJarLocator.getLibraryJarPath(LogManager.class),
                     LibrariesJarLocator.getLibraryJarPath(Core.class),
-                    LibrariesJarLocator.getLibraryJarPath(Gson.class),
                     LibrariesJarLocator.getLibraryJarPath(ReversedLinesFileReader.class),
                     LibrariesJarLocator.getLibraryJarPath(Memory.class),
                     LibrariesJarLocator.getLibraryJarPath(Tlhelp32.class)
