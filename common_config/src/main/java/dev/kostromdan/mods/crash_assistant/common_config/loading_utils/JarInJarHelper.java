@@ -224,11 +224,12 @@ public class JarInJarHelper {
         return new ArrayList<>(resultSet);
     }
 
-    public static boolean isCleanroomRelauncher(){
-        List<Mod> mods = getModsContainingPart("cleanroom");
-        mods = mods.stream().filter(mod ->  Objects.equals(mod.getModId(), "cleanroom-relauncher")).collect(Collectors.toList());
+    public static boolean isCleanroomRelauncher() {
+        HashSet<String> relauncherModIds = new HashSet<>(Arrays.asList("cleanroom-relauncher", "improved-relauncher", "relauncher"));
+        List<Mod> mods = getModsContainingPart("cleanroom", "relauncher");
+        mods = mods.stream().filter(mod -> relauncherModIds.contains(mod.getModId())).collect(Collectors.toList());
         if (mods.isEmpty()) return false;
-        if (!ClassExistenceChecker.classExists("com.cleanroommc.boot.Main")){
+        if (!ClassExistenceChecker.classExists("com.cleanroommc.boot.Main")) {
             LOGGER.warn("Detected cleanroom-relauncher env. Crash Assistant will start after relaunching with cleanroom.");
             return true;
         }
@@ -375,7 +376,7 @@ public class JarInJarHelper {
                     processInfo = fileName.split("\\.info")[0];
                 } else if (fileName.endsWith(".dll")) {
                     processInfo = fileName.split("_gpu_detect\\.cs")[0];
-                }else {
+                } else {
                     processInfo = fileName.split("_mod\\.jar")[0];
                 }
 
