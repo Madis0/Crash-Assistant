@@ -61,10 +61,14 @@ jar {
 }
 
 shadowJar {
-    from("$rootDir/LICENSE") {
-        rename { "CRASH_ASSISTANT_LICENSE" }
+    from("$rootDir/LICENSE.md") {
+        rename { "CRASH_ASSISTANT_LICENSE.md" }
         into ""
     }
+    from("$rootDir/thirdparty") {
+        into "thirdparty"
+    }
+
     evaluationDependsOn(':common_config')
     dependsOn project(':common_config').tasks.named('shadowJar')
     archiveClassifier.set('')
