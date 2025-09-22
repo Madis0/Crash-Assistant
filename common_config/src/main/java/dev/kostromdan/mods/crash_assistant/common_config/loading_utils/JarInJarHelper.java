@@ -14,7 +14,6 @@ import dev.kostromdan.mods.crash_assistant.common_config.platform.PlatformHelp;
 import dev.kostromdan.mods.crash_assistant.common_config.utils.ClassExistenceChecker;
 import dev.kostromdan.mods.crash_assistant.common_config.utils.JavaBinaryLocator;
 import dev.kostromdan.mods.crash_assistant.common_config.utils.ProcessHelper;
-import net.minecraftforge.fml.crash_assistant.ExitVMBypass;
 import org.apache.commons.io.input.ReversedLinesFileReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

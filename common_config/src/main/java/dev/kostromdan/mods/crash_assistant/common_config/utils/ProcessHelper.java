@@ -1,6 +1,7 @@
 package dev.kostromdan.mods.crash_assistant.common_config.utils;
 
 import dev.kostromdan.mods.crash_assistant.common_config.platform.PlatformHelp;
+import net.minecraftforge.fml.crash_assistant.ExitVMBypass;
 
 import java.util.Optional;
 
@@ -119,6 +120,6 @@ public class ProcessHelper {
      * @param status the exit status code to use when terminating the process
      */
     public static void exitProcess(int status) {
-        System.exit(status);
+        ExitVMBypass.exit(status);
     }
 }
