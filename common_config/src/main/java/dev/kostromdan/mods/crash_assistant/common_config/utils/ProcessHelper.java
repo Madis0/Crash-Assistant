@@ -3,8 +3,8 @@ package dev.kostromdan.mods.crash_assistant.common_config.utils;
 import dev.kostromdan.mods.crash_assistant.common_config.loading_utils.JarInJarHelper;
 import dev.kostromdan.mods.crash_assistant.common_config.platform.PlatformHelp;
 import net.minecraftforge.fml.crash_assistant.ExitVMBypass;
-import oshi.SystemInfo;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,7 +124,6 @@ public class ProcessHelper {
      */
     public static void exitProcess(int status) {
         ExitVMBypass.exit(status);
-import oshi.SystemInfo;
     }
 
     public static String getJavaVersion() {
